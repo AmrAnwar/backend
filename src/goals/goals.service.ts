@@ -24,7 +24,8 @@ export class GoalsService {
 
     await goalRef.set(goal);
 
-    return goal;
+    const { userId: _userId, ...goalWithoutUserId } = goal;
+    return goalWithoutUserId;
   }
 
   async findAll(userId: string) {
@@ -34,7 +35,10 @@ export class GoalsService {
       .where('userId', '==', userId)
       .get();
 
-    return goalsSnapshot.docs.map((doc) => doc.data());
+    return goalsSnapshot.docs.map((doc) => {
+      const { userId: _userId, ...goalWithoutUserId } = doc.data();
+      return goalWithoutUserId;
+    });
   }
 
   async findOne(userId: string, goalId: string) {
@@ -51,7 +55,8 @@ export class GoalsService {
       throw new NotFoundException('Goal not found');
     }
 
-    return goal;
+    const { userId: _userId, ...goalWithoutUserId } = goal;
+    return goalWithoutUserId;
   }
 
   async update(userId: string, goalId: string, updateGoalDto: UpdateGoalDto) {
@@ -72,7 +77,8 @@ export class GoalsService {
     await goalRef.update(updates);
 
     const updatedGoal = await goalRef.get();
-    return updatedGoal.data();
+    const { userId: _userId, ...goalWithoutUserId } = updatedGoal.data()!;
+    return goalWithoutUserId;
   }
 
   async remove(userId: string, goalId: string) {

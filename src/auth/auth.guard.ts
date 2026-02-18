@@ -6,9 +6,10 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { FirebaseService } from '../firebase/firebase.service';
+import { DecodedIdToken } from 'firebase-admin/auth';
 
-interface RequestWithUser extends Request {
-  user?: any;
+export interface RequestWithUser extends Request {
+  user?: DecodedIdToken | { user_id: string };
 }
 
 @Injectable()
