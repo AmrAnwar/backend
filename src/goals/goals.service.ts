@@ -73,6 +73,7 @@ export class GoalsService {
     ) {
       updates.completedAt = new Date().toISOString();
     }
+    console.log('updates...', updates);
 
     await goalRef.update(updates);
 
