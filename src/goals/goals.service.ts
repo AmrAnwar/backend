@@ -16,6 +16,7 @@ export class GoalsService {
       goalId: goalRef.id,
       userId,
       name: createGoalDto.name,
+      description: createGoalDto.description || null,
       deadlineAt: createGoalDto.deadlineAt || null,
       createdAt: new Date().toISOString(),
       completedAt: null,

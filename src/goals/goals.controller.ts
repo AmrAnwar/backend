@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   ValidationPipe,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { GoalsService } from './goals.service';
 import { CreateGoalDto } from './dto/create-goal.dto';
@@ -29,6 +31,7 @@ export class GoalsController {
   }
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   findAll(@User('uid') userId: string) {
     return this.goalsService.findAll(userId);
   }
